@@ -49,6 +49,94 @@
     <input type="text" id="roll" placeholder="Roll Number" required />
     <input type="email" id="email" placeholder="Email" required />
     <input type="text" id="cgpa" placeholder="CGPA" required />
+    <input type="password" id="password" placeholder="Set a Password" required />
+
+    <!-- Add this inside your existing <div class="form-box"> above the Register button -->
+    <select id="domain" required>
+      <option value="" disabled selected>Select Your Domain</option>
+      <option value="CSE">Computer Science</option>
+      <option value="ECE">Electronics & Communication</option>
+      <option value="MECH">Mechanical Engineering</option>
+      <option value="CIVIL">Civil Engineering</option>
+      <option value="EEE">Electrical & Electronics</option>
+      <option value="IT">Information Technology</option>
+      <option value="AIML">Artificial Intelligence & Machine Learning</option>
+    </select>
+
     <input type="file" id="cv" accept=".pdf" />
 
-    <button onclick="registerStudent()">
+    <button onclick="registerStudent()"> Submit</button>
+  </div>
+
+<script>
+  function generateUniqueId() {
+    return Math.floor(1000 + Math.random() * 9000);
+  }
+
+  function registerStudent() {
+    const name = document.getElementById('name').value.trim();
+    const roll = document.getElementById('roll').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const cgpa = document.getElementById('cgpa').value.trim();
+    const domain = document.getElementById('domain').value;
+    const password = document.getElementById('password').value;
+    const cvFile = document.getElementById('cv').files[0];
+
+    if (!name || !roll || !email || !cgpa || !domain || !password) {
+      alert("⚠️ Please fill in all required fields.");
+      return;
+    }
+
+    const studentId = generateUniqueId();
+    const reader = new FileReader();
+
+    reader.onload = function () {
+      const newStudent = {
+        id: studentId,
+        name,
+        roll,
+        email,
+        cgpa,
+        domain,
+        password,
+        cv: reader.result,
+        appliedCompanies: []
+      };
+
+      const students = JSON.parse(localStorage.getItem("students") || "[]");
+      students.push(newStudent);
+      localStorage.setItem("students", JSON.stringify(students));
+
+      alert(`✅ Registered!\nStudent ID: ${studentId}`);
+      localStorage.setItem("loggedInStudent", JSON.stringify(newStudent));
+      window.location.href = "dashboard.html";
+    };
+
+    if (cvFile) {
+      reader.readAsDataURL(cvFile);
+    } else {
+      const newStudent = {
+        id: studentId,
+        name,
+        roll,
+        email,
+        cgpa,
+        domain,
+        password,
+        cv: null,
+        appliedCompanies: []
+      };
+
+      const students = JSON.parse(localStorage.getItem("students") || "[]");
+      students.push(newStudent);
+      localStorage.setItem("students", JSON.stringify(students));
+
+      alert(`✅ Registered!\nStudent ID: ${studentId}`);
+      localStorage.setItem("loggedInStudent", JSON.stringify(newStudent));
+      window.location.href = "dashboard.html";
+    }
+  }
+</script>
+
+
+  </body>

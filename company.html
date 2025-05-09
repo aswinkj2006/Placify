@@ -1,23 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Placify – Company Portal</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Placify – Company Registration</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet"/>
   <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #1e3c72, #2a5298);
+      color: white;
+      margin: 0;
+      padding: 20px;
+    }
+    h2 {
+      text-align: center;
+      margin-top: 40px;
+    }
     form {
       display: flex;
       flex-direction: column;
       max-width: 500px;
-      margin: 80px auto;
+      margin: 40px auto;
       background: rgba(255, 255, 255, 0.1);
       backdrop-filter: blur(10px);
       border-radius: 20px;
       padding: 40px;
-      color: white;
     }
-    form input, form textarea {
+    form input, form textarea, form select {
       margin-bottom: 20px;
       padding: 12px;
       border-radius: 10px;
@@ -31,22 +41,56 @@
       color: white;
       border-radius: 10px;
       font-weight: bold;
-    }
-    h2 {
-      text-align: center;
-      color: #fff;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
   <h2>Company Registration – Placify</h2>
-  <form>
-    <input type="text" placeholder="Company Name" required />
-    <input type="text" placeholder="Position Offered" required />
-    <input type="email" placeholder="Recruiter Email" required />
-    <input type="text" placeholder="Contact Number" required />
-    <textarea placeholder="Job Description" rows="5" required></textarea>
+  <form onsubmit="registerCompany(event)">
+    <input type="text" id="name" placeholder="Company Name" required />
+    <input type="text" id="position" placeholder="Position Offered" required />
+    <input type="email" id="email" placeholder="Recruiter Email" required />
+    <input type="text" id="contact" placeholder="Contact Number" required />
+
+    <select id="domain" required>
+      <option value="" disabled selected>Select Hiring Domain</option>
+      <option value="CSE">Computer Science</option>
+      <option value="ECE">Electronics & Communication</option>
+      <option value="MECH">Mechanical Engineering</option>
+      <option value="CIVIL">Civil Engineering</option>
+      <option value="EEE">Electrical & Electronics</option>
+      <option value="IT">Information Technology</option>
+      <option value="BIO">AI & ML</option>
+    </select>
+
+    <input type="text" id="dateRange" placeholder="Placement Drive Dates (e.g., 16 Apr - 18 Apr)" required />
+
+    <textarea id="description" placeholder="Job Description" rows="5" required></textarea>
     <button type="submit">Register</button>
   </form>
+
+  <script>
+    function registerCompany(e) {
+      e.preventDefault();
+
+      const name = document.getElementById("name").value.trim();
+      const position = document.getElementById("position").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const contact = document.getElementById("contact").value.trim();
+      const domain = document.getElementById("domain").value.trim();
+      const dateRange = document.getElementById("dateRange").value.trim();
+      const description = document.getElementById("description").value.trim();
+
+      const newCompany = { name, position, email, contact, domain, dateRange, description };
+
+      const companies = JSON.parse(localStorage.getItem("companies")) || [];
+      companies.push(newCompany);
+      localStorage.setItem("companies", JSON.stringify(companies));
+
+      alert("✅ Company registered successfully!");
+      document.querySelector("form").reset();
+    }
+  </script>
 </body>
 </html>
