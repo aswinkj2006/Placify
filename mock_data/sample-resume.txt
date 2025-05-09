@@ -1,0 +1,32 @@
+Name: Aswin K J
+Email: aswinkj@email.com
+Phone: +91 98765 43210
+CGPA: 9.17
+
+Education:
+- B.Tech in Computer Science, SNS College of Technology, Coimbatore
+- 12th Grade: 89%, The Oxford School, Trivandrum
+- 10th Grade: 88%
+
+Skills:
+- JavaScript, Python, HTML, CSS
+- React, Node.js, MongoDB
+- Git, REST APIs
+
+Projects:
+1. RecyCash – A waste recycling app with green-themed UI for incentive-based recycling.
+2. StudyBuddy AI – A GenAI-powered student helpdesk bot.
+3. SmartPlacement AI – A Perplexity-Sonar powered placement automation system (ongoing).
+
+Internships:
+- Full Stack Development at Pantech
+- GenAI Workshop at NIT Trichy (Groq AI, API integration)
+
+Achievements:
+- Paper presentation at CIT Tech Symposium
+- DHMR ICR Workshop at KPRIET
+- Participated in Agentforce Hackathon by Salesforce
+
+Certifications:
+- Full Stack Web Development (Pantech)
+- AI Basics with Groq (NIT Trichy)

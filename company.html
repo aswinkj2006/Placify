@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Placify – Company Portal</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    form {
+      display: flex;
+      flex-direction: column;
+      max-width: 500px;
+      margin: 80px auto;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 40px;
+      color: white;
+    }
+    form input, form textarea {
+      margin-bottom: 20px;
+      padding: 12px;
+      border-radius: 10px;
+      border: none;
+      font-size: 1rem;
+    }
+    form button {
+      padding: 14px;
+      border: none;
+      background: #06b6d4;
+      color: white;
+      border-radius: 10px;
+      font-weight: bold;
+    }
+    h2 {
+      text-align: center;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <h2>Company Registration – Placify</h2>
+  <form>
+    <input type="text" placeholder="Company Name" required />
+    <input type="text" placeholder="Position Offered" required />
+    <input type="email" placeholder="Recruiter Email" required />
+    <input type="text" placeholder="Contact Number" required />
+    <textarea placeholder="Job Description" rows="5" required></textarea>
+    <button type="submit">Register</button>
+  </form>
+</body>
+</html>
