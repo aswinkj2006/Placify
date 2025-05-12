@@ -69,74 +69,37 @@
   </div>
 
 <script>
-  function generateUniqueId() {
-    return Math.floor(1000 + Math.random() * 9000);
-  }
-
   function registerStudent() {
-    const name = document.getElementById('name').value.trim();
-    const roll = document.getElementById('roll').value.trim();
-    const email = document.getElementById('email').value.trim();
-    const cgpa = document.getElementById('cgpa').value.trim();
-    const domain = document.getElementById('domain').value;
-    const password = document.getElementById('password').value;
-    const cvFile = document.getElementById('cv').files[0];
+    const name = document.getElementById("name").value.trim();
+    const roll = document.getElementById("roll").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const cgpa = document.getElementById("cgpa").value.trim();
+    const domain = document.getElementById("domain").value;
+    const password = prompt("Set a password for future login:");
 
     if (!name || !roll || !email || !cgpa || !domain || !password) {
-      alert("⚠️ Please fill in all required fields.");
+      alert("Please fill all fields and set a password.");
       return;
     }
 
-    const studentId = generateUniqueId();
-    const reader = new FileReader();
-
-    reader.onload = function () {
-      const newStudent = {
-        id: studentId,
-        name,
-        roll,
-        email,
-        cgpa,
-        domain,
-        password,
-        cv: reader.result,
-        appliedCompanies: []
-      };
-
-      const students = JSON.parse(localStorage.getItem("students") || "[]");
-      students.push(newStudent);
-      localStorage.setItem("students", JSON.stringify(students));
-
-      alert(`✅ Registered!\nStudent ID: ${studentId}`);
-      localStorage.setItem("loggedInStudent", JSON.stringify(newStudent));
-      window.location.href = "dashboard.html";
+    const registerId = Math.floor(1000 + Math.random() * 9000); // 4-digit ID
+    const student = {
+      name,
+      roll,
+      email,
+      cgpa,
+      domain,
+      password,
+      registerId,
+      appliedCompanies: []
     };
 
-    if (cvFile) {
-      reader.readAsDataURL(cvFile);
-    } else {
-      const newStudent = {
-        id: studentId,
-        name,
-        roll,
-        email,
-        cgpa,
-        domain,
-        password,
-        cv: null,
-        appliedCompanies: []
-      };
+    let students = JSON.parse(localStorage.getItem("students")) || [];
+    students.push(student);
+    localStorage.setItem("students", JSON.stringify(students));
 
-      const students = JSON.parse(localStorage.getItem("students") || "[]");
-      students.push(newStudent);
-      localStorage.setItem("students", JSON.stringify(students));
-
-      alert(`✅ Registered!\nStudent ID: ${studentId}`);
-      localStorage.setItem("loggedInStudent", JSON.stringify(newStudent));
-      window.location.href = "dashboard.html";
-    }
+    alert(`🎉 Registered Successfully! Your Register ID is: ${registerId}`);
+    window.location.href = "login.html";
   }
 </script>
-
-
   </body>
