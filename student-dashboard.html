@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Placify – Student Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #1e3c72, #2a5298);
+      margin: 0;
+      color: white;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 20px;
+      backdrop-filter: blur(10px);
+    }
+
+    .navbar h1 {
+      font-size: 24px;
+      margin: 0;
+    }
+
+    .navbar button {
+      background: #ef4444;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 8px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 30px;
+    }
+
+    .tile {
+      background: rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      transition: transform 0.3s;
+    }
+
+    .tile:hover {
+      transform: scale(1.02);
+    }
+
+    .tile.square {
+      height: 220px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .company-list p {
+      margin: 8px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="navbar">
+    <h1 id="studentName">Welcome</h1>
+    <button onclick="logout()">Logout</button>
+  </div>
+
+  <div class="grid">
+    <!-- Tile: Companies Applied -->
+    <div class="tile">
+      <h3>Companies You've Applied</h3>
+      <div class="company-list" id="appliedCompaniesList"></div>
+    </div>
+
+    <!-- Tile: Countdown -->
+    <div class="tile square">
+      <h3>Next Placement In</h3>
+      <p id="countdown"></p>
+      <p id="nextDriveRange" style="font-size: 0.9em;"></p>
+    </div>
+
+    <!-- Tile: Interview Questions -->
+    <div class="tile" onclick="goToQuestions()" style="cursor:pointer;">
+      <h3>Interview Questions</h3>
+      <p>Click to view and generate more</p>
+    </div>
+  </div>
+
+  <script>
+    const student = JSON.parse(localStorage.getItem("loggedInStudent"));
+    if (!student) window.location.href = "login.html";
+
+    document.getElementById("studentName").innerText = `Welcome, ${student.name}`;
+
+    const appliedList = document.getElementById("appliedCompaniesList");
+    (student.appliedCompanies || []).forEach(company => {
+      const p = document.createElement("p");
+      p.textContent = company;
+      appliedList.appendChild(p);
+    });
+
+    // Countdown logic (based on earliest applied company)
+    const allCompanies = JSON.parse(localStorage.getItem("companies") || "[]");
+    const appliedCompanies = allCompanies.filter(c => student.appliedCompanies.includes(c.name));
+
+    let soonestDate = null;
+    let soonestRange = "";
+
+    appliedCompanies.forEach(c => {
+      if (c.placementStartDate) {
+        const start = new Date(c.placementStartDate);
+        if (!soonestDate || start < soonestDate) {
+          soonestDate = start;
+          soonestRange = `${new Date(c.placementStartDate).toLocaleDateString()} – ${new Date(c.placementEndDate).toLocaleDateString()}`;
+        }
+      }
+    });
+
+    function updateCountdown() {
+      const countdownEl = document.getElementById("countdown");
+      const rangeEl = document.getElementById("nextDriveRange");
+
+      if (!soonestDate) {
+        countdownEl.textContent = "No upcoming drives";
+        return;
+      }
+
+      const now = new Date();
+      const diff = soonestDate - now;
+
+      if (diff <= 0) {
+        countdownEl.textContent = "Drive Started!";
+      } else {
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hrs = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        const mins = Math.floor((diff / (1000 * 60)) % 60);
+        countdownEl.textContent = `${days}d ${hrs}h ${mins}m`;
+        rangeEl.textContent = `📅 ${soonestRange}`;
+      }
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 60000);
+
+    function logout() {
+      localStorage.removeItem("loggedInStudent");
+      window.location.href = "login.html";
+    }
+
+    function goToQuestions() {
+      window.location.href = "interview-questions.html";
+    }
+  </script>
+</body>
+</html>
