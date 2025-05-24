@@ -49,17 +49,20 @@
   <button onclick="submitApplications()">Apply</button>
 
   <script>
+    const student = JSON.parse(localStorage.getItem("loggedInStudent"));
     const allCompanies = JSON.parse(localStorage.getItem("companies")) || [];
     const companyList = document.getElementById("companyList");
 
-const studentStr = localStorage.getItem("loggedInStudent");
-if (!studentStr) {
-  alert("Please log in first!");
-  window.location.href = "login.html";
-}
+    if (!allCompanies || allCompanies.length === 0) {
+      alert("No companies available. Please check back later.");
+      window.location.href = "student-dashboard.html";
+    }
 
-const student = JSON.parse(studentStr);
-
+    if (!student) {
+      alert("No student data found. Please log in again.");
+      window.location.href = "login.html";
+    }
+    
     const domain = student.domain;
 
     const filteredCompanies = allCompanies.filter(c => {
