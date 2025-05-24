@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Placify</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .logo-img {
+      width: 120px;
+      margin-bottom: 20px;
+    }
+    .main-title {
+      font-size: 4rem;
+      font-weight: 700;
+      color: #fff;
+      margin: 0;
+    }
+    .subtitle {
+      font-size: 1.4rem;
+      color: #e0f2fe;
+      margin-bottom: 40px;
+    }
+    .btn-group {
+      display: flex;
+      gap: 20px;
+    }
+    .btn-group button {
+      padding: 14px 28px;
+      font-size: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="splash-container">
+    <div style="text-align: center; z-index: 2;">
+      <img src="/assets/logo.png" alt="Placify Logo" class="logo-img" />
+      <h1 class="main-title">Placify</h1>
+      <p class="subtitle">AI-powered smart placement assistant</p>
+      <div class="btn-group">
+        <button onclick="location.href='/client/pages/student.html'">I'm a Student</button>
+        <button onclick="location.href='/client/pages/company.html'">I'm a Company</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

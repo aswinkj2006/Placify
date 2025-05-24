@@ -1,0 +1,157 @@
+/* Importing Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+  height: 100%;
+  background: linear-gradient(to bottom right, #0f172a, #1e3a8a);
+  background-attachment: fixed;
+  overflow-x: hidden;
+}
+
+/* Centered splash container */
+.splash-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100vh;
+  text-align: center;
+  padding: 20px;
+  animation: fadeIn 1.2s ease-in-out;
+}
+
+.logo-img {
+  width: 130px;
+  animation: popUp 0.8s ease-in-out;
+}
+
+.main-title {
+  font-size: 3.8rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 10px 0;
+  animation: slideUp 0.8s ease-in-out;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  color: #cbd5e1;
+  margin-bottom: 30px;
+  animation: slideUp 1s ease-in-out;
+}
+
+.btn-group {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+  animation: fadeIn 1.4s ease-in-out;
+}
+
+.btn-group button {
+  padding: 14px 28px;
+  font-size: 1rem;
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.btn-group button:hover {
+  transform: scale(1.05);
+}
+
+/* Shared form styles */
+form {
+  display: flex;
+  flex-direction: column;
+  max-width: 500px;
+  margin: 100px auto 40px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  padding: 40px 30px;
+  color: white;
+  animation: fadeIn 1.2s ease;
+}
+
+form input,
+form textarea {
+  margin-bottom: 20px;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  font-size: 1rem;
+}
+
+form button {
+  padding: 14px;
+  border: none;
+  background: #2563eb;
+  color: white;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+form button:hover {
+  background: #1d4ed8;
+}
+
+h2 {
+  text-align: center;
+  color: #ffffff;
+  font-size: 2rem;
+  margin-top: 80px;
+  margin-bottom: 30px;
+  animation: slideDown 1s ease;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes popUp {
+  0% { transform: scale(0.6); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Mobile Responsive */
+@media (max-width: 600px) {
+  .main-title {
+    font-size: 2.8rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+
+  form {
+    margin: 60px 20px;
+    padding: 30px 20px;
+  }
+
+  h2 {
+    margin-top: 60px;
+    font-size: 1.6rem;
+  }
+}

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Placify – Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right, #1e3c72, #2a5298);
+      color: white;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .navbar {
+      width: 100%;
+      background: rgba(255,255,255,0.08);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      position: sticky;
+      top: 0;
+      backdrop-filter: blur(10px);
+      z-index: 999;
+      
+    }
+
+    .navbar h1 {
+      font-size: 1.5rem;
+    }
+
+    .navbar .student-name {
+      font-weight: bold;
+      font-size: 1.5rem;
+      padding: 8px 14px;
+      border-radius: 20px;
+    }
+
+    .logout-btn {
+      background: #ef4444;
+      font-family: 'Poppins', sans-serif;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 8px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .logout-btn:hover {
+    background-color: rgb(254, 8, 8);
+    color: #ffffff;
+    }
+
+
+    h2 {
+      margin-top: 30px;
+      font-size: 2rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      padding: 40px;
+      width: 100%;
+      max-width: 1100px;
+    }
+
+    .tile {
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 20px;
+      backdrop-filter: blur(8px);
+      transition: transform 0.3s ease;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .tile:hover {
+      transform: scale(1.03);
+    }
+
+    .tile h3 {
+      margin-top: 0;
+      font-size: 1.4rem;
+    }
+
+    .tile p {
+      margin: 10px 0;
+      font-size: 0.95rem;
+    }
+
+    .tile button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      background-color: #00aaff;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .tile button:hover {
+      background-color: #008ecc;
+    }
+
+    @media (max-width: 768px) {
+      .navbar h1 {
+        font-size: 1.2rem;
+      }
+
+      .navbar .student-name {
+        font-size: 0.9rem;
+        padding: 6px 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <h1 id="studentName">Placify – Dashboard</h1>
+    <button onclick="logout()" class="logout-btn">Logout</button>
+    
+  </div>
+
+  <h2>Your Applied Companies</h2>
+  <div class="grid" id="dashboardGrid"></div>
+
+  <script>
+    const studentId = localStorage.getItem("loggedInStudentId");
+    const students = JSON.parse(localStorage.getItem("students")) || [];
+    const companies = JSON.parse(localStorage.getItem("companies")) || [];
+
+    const student = students.find(s => s.registerId == studentId);
+    if (student) {
+      document.getElementById('studentName').innerText = `Placify – ${student.name}`;
+    }
+
+    const appliedCompanies = companies.filter(company =>
+      student.appliedCompanies.includes(company.name)
+    );
+
+    const grid = document.getElementById("dashboardGrid");
+
+    if (appliedCompanies.length === 0) {
+      grid.innerHTML = `<p style="grid-column: 1 / -1; text-align: center;">You haven't applied to any companies yet.</p>`;
+    } else {
+      appliedCompanies.forEach(company => {
+        const tile = document.createElement("div");
+        tile.className = "tile";
+        tile.innerHTML = `
+          <h3>${company.name}</h3>
+          <p><strong>Position:</strong> ${company.position}</p>
+          <p><strong>Placement Dates:</strong> ${company.dates}</p>
+          <button onclick="viewQuestions('${company.name}')">View Interview Questions</button>
+        `;
+        grid.appendChild(tile);
+      });
+    }
+
+    function viewQuestions(companyName) {
+      localStorage.setItem("selectedCompany", companyName);
+      window.location.href = "interview-questions.html";
+    }
+
+    function logout() {
+      localStorage.removeItem("loggedInStudentId");
+      window.location.href = "login.html";
+    }
+  </script>
+</body>
+</html>
