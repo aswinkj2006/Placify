@@ -104,7 +104,7 @@
       appliedCompanies: []
     };
 
-    let students = JSON.parse(localStorage.getItem("students")) || [];
+    const students = JSON.parse(localStorage.getItem("students")) || [];
     students.push(student);
     localStorage.setItem("students", JSON.stringify(students));
 
