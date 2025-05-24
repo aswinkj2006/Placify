@@ -62,7 +62,7 @@
       alert("No student data found. Please log in again.");
       window.location.href = "login.html";
     }
-    
+
     const domain = student.domain;
 
     const filteredCompanies = allCompanies.filter(c => {
@@ -106,7 +106,7 @@
       });
       localStorage.setItem("students", JSON.stringify(updatedStudents));
 
-      alert("✅ Applied successfully!");
+      alert("✅ Applied successfully!");  
       window.location.href = "student-dashboard.html";
     }
   </script>
