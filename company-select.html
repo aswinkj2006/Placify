@@ -49,14 +49,16 @@
   <button onclick="submitApplications()">Apply</button>
 
   <script>
-    const student = JSON.parse(localStorage.getItem("loggedInStudent"));
     const allCompanies = JSON.parse(localStorage.getItem("companies")) || [];
     const companyList = document.getElementById("companyList");
 
-    if (!student) {
-      alert("Please log in first!");
-      window.location.href = "login.html";
-    }
+const studentStr = localStorage.getItem("loggedInStudent");
+if (!studentStr) {
+  alert("Please log in first!");
+  window.location.href = "login.html";
+}
+
+const student = JSON.parse(studentStr);
 
     const domain = student.domain;
 

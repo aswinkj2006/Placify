@@ -56,27 +56,21 @@
   </div>
 
 <script>
-  function loginStudent() {
-    const regId = document.getElementById("regId").value.trim();
-    const password = document.getElementById("password").value;
+// Example login script
+function loginStudent() {
+  const registerId = document.getElementById("registerId").value.trim();
+  const password = document.getElementById("password").value;
 
-    const students = JSON.parse(localStorage.getItem("students")) || [];
-    const student = students.find(s => s.registerId == regId && s.password == password);
+  const students = JSON.parse(localStorage.getItem("students") || "[]");
+  const student = students.find(s => s.registerId === registerId && s.password === password);
 
-    if (!student) {
-      alert("❌ Invalid Register ID or Password.");
-      return;
-    }
-
-    localStorage.setItem("loggedInStudentId", regId); // Store session
-
-    // First time? Then no applied companies yet
-    if (student.appliedCompanies.length === 0) {
-      window.location.href = "company-select.html";
-    } else {
-      window.location.href = "dashboard.html";
-    }
+  if (student) {
+    localStorage.setItem("loggedInStudent", JSON.stringify(student));
+    window.location.href = "company-select.html";
+  } else {
+    alert("Invalid Register ID or Password.");
   }
+}
 </script>
 </body>
 </html>
