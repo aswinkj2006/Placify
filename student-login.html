@@ -71,7 +71,7 @@
     localStorage.setItem("loggedInStudentId", regId); // Store session
 
     // First time? Then no applied companies yet
-    if (!student.appliedCompanies || student.appliedCompanies.length === 0){
+    if (student.appliedCompanies.length === 0) {
       window.location.href = "company-select.html";
     } else {
       window.location.href = "dashboard.html";
